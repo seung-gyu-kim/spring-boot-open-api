@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.springboot.customerapi.controller;
 
 import com.nhnacademy.edu.springboot.customerapi.domain.Customer;
-import com.nhnacademy.edu.springboot.customerapi.exception.NotFoundCustomerException;
+import com.nhnacademy.edu.springboot.customerapi.exception.CustomerNotFoundException;
 import com.nhnacademy.edu.springboot.customerapi.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,9 @@ public class CustomerController {
         return customerService.getCustomer(id);
     }
 
-    @ExceptionHandler(NotFoundCustomerException.class)
+    @ExceptionHandler(CustomerNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleException(NotFoundCustomerException ex) {
+    public void handleException(CustomerNotFoundException ex) {
 
     }
 }

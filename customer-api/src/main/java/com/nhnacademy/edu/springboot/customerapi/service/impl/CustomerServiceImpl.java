@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.springboot.customerapi.service.impl;
 
 import com.nhnacademy.edu.springboot.customerapi.domain.Customer;
-import com.nhnacademy.edu.springboot.customerapi.exception.NotFoundCustomerException;
+import com.nhnacademy.edu.springboot.customerapi.exception.CustomerNotFoundException;
 import com.nhnacademy.edu.springboot.customerapi.repository.CustomerRepository;
 import com.nhnacademy.edu.springboot.customerapi.service.CustomerService;
 import lombok.RequiredArgsConstructor;
@@ -16,11 +16,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> getCustomers() {
-        return customerRepository.findAll();
+        return customerRepository.findAllByOrderById();
     }
 
     @Override
     public Customer getCustomer(Long customerId) {
-        return customerRepository.findById(customerId).orElseThrow(NotFoundCustomerException::new);
+        return customerRepository.findById(customerId).orElseThrow(CustomerNotFoundException::new);
     }
 }

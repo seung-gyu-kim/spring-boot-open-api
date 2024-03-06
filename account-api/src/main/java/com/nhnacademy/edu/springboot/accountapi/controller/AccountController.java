@@ -1,7 +1,7 @@
 package com.nhnacademy.edu.springboot.accountapi.controller;
 
 import com.nhnacademy.edu.springboot.accountapi.domain.Account;
-import com.nhnacademy.edu.springboot.accountapi.exception.NotFoundAccountException;
+import com.nhnacademy.edu.springboot.accountapi.exception.AccountNotFoundException;
 import com.nhnacademy.edu.springboot.accountapi.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,9 +24,9 @@ public class AccountController {
         return accountService.getAccount(id);
     }
 
-    @ExceptionHandler(NotFoundAccountException.class)
+    @ExceptionHandler(AccountNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleException(NotFoundAccountException ex) {
+    public void handleException(AccountNotFoundException ex) {
 
     }
 }

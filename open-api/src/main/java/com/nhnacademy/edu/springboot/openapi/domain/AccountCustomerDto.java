@@ -15,10 +15,18 @@ import lombok.*;
  */
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class AccountCustomerDto {
     private Long id;
     private String number;
     private Integer balance;
     private Customer customer;
+
+    public static AccountCustomerDto from(Account account, Customer customer) {
+        AccountCustomerDto dto = new AccountCustomerDto();
+        dto.id = account.getId();
+        dto.number = account.getNumber();
+        dto.balance = account.getBalance();
+        dto.customer = customer;
+        return dto;
+    }
 }

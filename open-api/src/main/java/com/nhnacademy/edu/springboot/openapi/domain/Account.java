@@ -11,13 +11,8 @@ public class Account {
     private Long id;
     private String number;
     private Integer balance;
+    private Long customerId;
 
     public Account() {
-    }
-
-    public Account(Long id, String number, Integer balance) {
-        this.id = id;
-        this.number = number;
-        this.balance = balance;
     }
 }
