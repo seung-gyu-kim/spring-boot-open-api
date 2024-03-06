@@ -35,4 +35,10 @@ public class AccountServiceImpl implements AccountService {
         account.setCustomerId(accountRequest.getCustomerId());
         return accountRepository.save(account);
     }
+
+    @Override
+    @Transactional
+    public void deleteAccount(Long accountId) {
+        accountRepository.deleteById(accountId);
+    }
 }

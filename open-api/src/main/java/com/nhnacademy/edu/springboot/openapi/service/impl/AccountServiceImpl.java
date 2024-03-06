@@ -50,4 +50,9 @@ public class AccountServiceImpl implements AccountService {
     public IdResponse createAccount(AccountRequest accountRequest) {
         return accountAdaptor.createAccount(accountRequest);
     }
+
+    @Override
+    public void deleteAccount(Long id) {
+        accountAdaptor.deleteAccount(id);
+    }
 }

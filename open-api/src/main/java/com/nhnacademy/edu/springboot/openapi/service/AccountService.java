@@ -12,4 +12,6 @@ public interface AccountService {
     AccountCustomerDto getAccount(Long id);
 
     IdResponse createAccount(AccountRequest accountRequest);
+
+    void deleteAccount(Long id);
 }

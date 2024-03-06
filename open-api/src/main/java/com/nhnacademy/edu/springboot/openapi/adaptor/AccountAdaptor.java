@@ -12,4 +12,6 @@ public interface AccountAdaptor {
     Account getAccount(Long id);
 
     IdResponse createAccount(AccountRequest accountRequest);
+
+    void deleteAccount(Long id);
 }

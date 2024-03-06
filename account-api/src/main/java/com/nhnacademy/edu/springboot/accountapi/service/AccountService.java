@@ -11,4 +11,6 @@ public interface AccountService {
     Account getAccount(Long accountId);
 
     Account createAccount(AccountRequest accountRequest);
+
+    void deleteAccount(Long accountId);
 }

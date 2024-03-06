@@ -87,4 +87,15 @@ public class AccountAdaptorImpl implements AccountAdaptor {
 
         return new IdResponse(Objects.requireNonNull(exchange.getBody()).getId());
     }
+
+    @Override
+    public void deleteAccount(Long id) {
+        RequestEntity<Void> requestEntity = RequestEntity.delete(accountIdApi, id).build();
+
+        ResponseEntity<Void> exchange = restTemplate.exchange(requestEntity, Void.class);
+
+        if(!Objects.equals(exchange.getStatusCode(), HttpStatus.OK)) {
+            throw new RuntimeException("Http Status가 OK 가 아닙니다.");
+        }
+    }
 }

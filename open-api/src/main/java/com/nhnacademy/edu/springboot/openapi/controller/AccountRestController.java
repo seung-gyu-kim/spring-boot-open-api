@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -41,9 +42,12 @@ public class AccountRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(idResponse);
     }
 
-    @ExceptionHandler({AccountNotFoundException.class, HttpClientErrorException.NotFound.class})
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public void handleException(Exception ex) {
-
+    @DeleteMapping("/{id}")
+    public void deleteAccount(@PathVariable Long id) {
+        accountService.deleteAccount(id);
     }
+
+    @ExceptionHandler({AccountNotFoundException.class, HttpClientErrorException.NotFound.class, HttpServerErrorException.InternalServerError.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public void handleException(Exception ex) { }
 }

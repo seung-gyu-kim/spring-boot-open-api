@@ -39,6 +39,11 @@ public class AccountController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new IdResponse(save.getId()));
     }
 
+    @DeleteMapping("/accounts/{id}")
+    public void deleteAccount(@PathVariable Long id) {
+        accountService.deleteAccount(id);
+    }
+
     @ExceptionHandler(AccountNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public void handleException(AccountNotFoundException ex) {
