@@ -4,9 +4,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Getter
 @ToString
@@ -15,6 +13,7 @@ import javax.persistence.Table;
 @Table(name = "api_customer")
 public class Customer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 

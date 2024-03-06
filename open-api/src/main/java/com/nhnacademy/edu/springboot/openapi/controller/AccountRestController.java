@@ -1,13 +1,19 @@
 package com.nhnacademy.edu.springboot.openapi.controller;
 
 import com.nhnacademy.edu.springboot.openapi.domain.AccountCustomerDto;
+import com.nhnacademy.edu.springboot.openapi.domain.AccountRequest;
+import com.nhnacademy.edu.springboot.openapi.domain.IdResponse;
 import com.nhnacademy.edu.springboot.openapi.exception.AccountNotFoundException;
+import com.nhnacademy.edu.springboot.openapi.exception.ValidationFailedException;
 import com.nhnacademy.edu.springboot.openapi.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,6 +30,15 @@ public class AccountRestController {
     @GetMapping("/{id}")
     public AccountCustomerDto getAccount(@PathVariable Long id) {
         return accountService.getAccount(id);
+    }
+
+    @PostMapping
+    public ResponseEntity<IdResponse> createAccount(@Valid @RequestBody AccountRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
+        IdResponse idResponse = accountService.createAccount(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(idResponse);
     }
 
     @ExceptionHandler({AccountNotFoundException.class, HttpClientErrorException.NotFound.class})

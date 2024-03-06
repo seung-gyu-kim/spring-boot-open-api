@@ -1,6 +1,7 @@
 package com.nhnacademy.edu.springboot.accountapi.service.impl;
 
 import com.nhnacademy.edu.springboot.accountapi.domain.Account;
+import com.nhnacademy.edu.springboot.accountapi.domain.AccountRequest;
 import com.nhnacademy.edu.springboot.accountapi.exception.AccountNotFoundException;
 import com.nhnacademy.edu.springboot.accountapi.repository.AccountRepository;
 import com.nhnacademy.edu.springboot.accountapi.service.AccountService;
@@ -24,5 +25,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account getAccount(Long accountId) {
         return accountRepository.findById(accountId).orElseThrow(AccountNotFoundException::new);
+    }
+
+    @Override
+    @Transactional
+    public Account createAccount(AccountRequest accountRequest) {
+        Account account = new Account();
+        account.setBalance(accountRequest.getBalance());
+        account.setCustomerId(accountRequest.getCustomerId());
+        return accountRepository.save(account);
     }
 }

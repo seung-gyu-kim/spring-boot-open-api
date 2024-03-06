@@ -1,6 +1,8 @@
 package com.nhnacademy.edu.springboot.openapi.adaptor;
 
 import com.nhnacademy.edu.springboot.openapi.domain.Account;
+import com.nhnacademy.edu.springboot.openapi.domain.AccountRequest;
+import com.nhnacademy.edu.springboot.openapi.domain.IdResponse;
 
 import java.util.List;
 
@@ -9,5 +11,5 @@ public interface AccountAdaptor {
 
     Account getAccount(Long id);
 
-    void createAccount(Account account);
+    IdResponse createAccount(AccountRequest accountRequest);
 }

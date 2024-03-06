@@ -2,9 +2,7 @@ package com.nhnacademy.edu.springboot.openapi.service.impl;
 
 import com.nhnacademy.edu.springboot.openapi.adaptor.AccountAdaptor;
 import com.nhnacademy.edu.springboot.openapi.adaptor.CustomerAdaptor;
-import com.nhnacademy.edu.springboot.openapi.domain.Account;
-import com.nhnacademy.edu.springboot.openapi.domain.AccountCustomerDto;
-import com.nhnacademy.edu.springboot.openapi.domain.Customer;
+import com.nhnacademy.edu.springboot.openapi.domain.*;
 import com.nhnacademy.edu.springboot.openapi.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -49,7 +47,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void createAccount(Account account) {
-
+    public IdResponse createAccount(AccountRequest accountRequest) {
+        return accountAdaptor.createAccount(accountRequest);
     }
 }

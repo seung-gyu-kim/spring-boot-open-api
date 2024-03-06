@@ -1,12 +1,18 @@
 package com.nhnacademy.edu.springboot.accountapi.controller;
 
 import com.nhnacademy.edu.springboot.accountapi.domain.Account;
+import com.nhnacademy.edu.springboot.accountapi.domain.AccountRequest;
+import com.nhnacademy.edu.springboot.accountapi.domain.IdResponse;
 import com.nhnacademy.edu.springboot.accountapi.exception.AccountNotFoundException;
+import com.nhnacademy.edu.springboot.accountapi.exception.ValidationFailedException;
 import com.nhnacademy.edu.springboot.accountapi.service.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -22,6 +28,15 @@ public class AccountController {
     @GetMapping("/accounts/{id}")
     public Account getAccount(@PathVariable Long id) {
         return accountService.getAccount(id);
+    }
+
+    @PostMapping("/accounts")
+    public ResponseEntity<IdResponse> createAccount(@Valid @RequestBody AccountRequest request, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationFailedException(bindingResult);
+        }
+        Account save = accountService.createAccount(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new IdResponse(save.getId()));
     }
 
     @ExceptionHandler(AccountNotFoundException.class)

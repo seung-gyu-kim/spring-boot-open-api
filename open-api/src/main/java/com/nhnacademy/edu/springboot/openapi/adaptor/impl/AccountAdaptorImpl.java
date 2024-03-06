@@ -3,6 +3,8 @@ package com.nhnacademy.edu.springboot.openapi.adaptor.impl;
 import com.nhnacademy.edu.springboot.openapi.adaptor.AccountAdaptor;
 import com.nhnacademy.edu.springboot.openapi.config.AccountAdaptorProperties;
 import com.nhnacademy.edu.springboot.openapi.domain.Account;
+import com.nhnacademy.edu.springboot.openapi.domain.AccountRequest;
+import com.nhnacademy.edu.springboot.openapi.domain.IdResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
@@ -68,12 +70,12 @@ public class AccountAdaptorImpl implements AccountAdaptor {
     }
 
     @Override
-    public void createAccount(Account account) {
+    public IdResponse createAccount(AccountRequest request) {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         httpHeaders.setAccept(List.of(MediaType.APPLICATION_JSON));
 
-        HttpEntity<Account> requestEntity = new HttpEntity<>(account, httpHeaders);
+        HttpEntity<AccountRequest> requestEntity = new HttpEntity<>(request, httpHeaders);
         ResponseEntity<Account> exchange = restTemplate.exchange(accountsApi,
                 HttpMethod.POST,
                 requestEntity,
@@ -82,5 +84,7 @@ public class AccountAdaptorImpl implements AccountAdaptor {
         if(!Objects.equals(statusCode, HttpStatus.CREATED)) {
             throw new RuntimeException("Http Status가 CREATED 가 아닙니다.");
         }
+
+        return new IdResponse(Objects.requireNonNull(exchange.getBody()).getId());
     }
 }

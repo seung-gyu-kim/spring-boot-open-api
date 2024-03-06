@@ -1,7 +1,8 @@
 package com.nhnacademy.edu.springboot.openapi.service;
 
-import com.nhnacademy.edu.springboot.openapi.domain.Account;
 import com.nhnacademy.edu.springboot.openapi.domain.AccountCustomerDto;
+import com.nhnacademy.edu.springboot.openapi.domain.AccountRequest;
+import com.nhnacademy.edu.springboot.openapi.domain.IdResponse;
 
 import java.util.List;
 
@@ -10,5 +11,5 @@ public interface AccountService {
 
     AccountCustomerDto getAccount(Long id);
 
-    void createAccount(Account account);
+    IdResponse createAccount(AccountRequest accountRequest);
 }
